@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Task MLM Apis",
+    "description": "API for an MLM platfrom",
+    "contact": {
+      "name": "API Support",
+      "email": "dcazicruz@icloud.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Task CRUD",
+      "description": "Task related apis"
+    }
+  ],
+  "securityDefinitions": {},
+  "paths": {},
+  "components": {
+    "schemas": {
+      "errorResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "message": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "errorResponse.404": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "example": "Not found"
+          }
+        }
+      },
+      "errorResponse.500": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "500"
+          },
+          "message": {
+            "type": "string",
+            "example": "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
