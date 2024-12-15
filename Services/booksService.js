@@ -70,6 +70,7 @@ const borrowBook = async (userId, bookId) => {
 
         if (!user) throw new ApiError(404, 'Invalid user');
         if (!book) throw new ApiError(404, "Book does not exist");
+        if(book.status === 'borrowed') throw new ApiError(400, "Book is not available");
 
         const history = new History({
             user: user.id,
