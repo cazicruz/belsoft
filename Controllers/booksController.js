@@ -25,7 +25,8 @@ const addBook = async (req,res)=>{
 }
 
 const borrowBook = async (req, res)=>{
-    const {bookId, userId} = req.body;
+    const {bookId} = req.body;
+    const userId = req.userId
     if(!bookId||!userId) return res.status(400).json({msg:'book id and user id are required'});
     const borrowHistory = await bookService.borrowBook(userId,bookId);
     return res.status(200).json({msg:'you just borrowed a book',
@@ -33,7 +34,8 @@ const borrowBook = async (req, res)=>{
 }
 
 const returnBook = async (req, res)=>{
-    const {bookId,userId} = req.body;
+    const {bookId} = req.body;
+    const userId = req.userId
     if(!bookId||!userId) return res.status(400).json({msg:'book id and user id are required'});
     const newHistory = await bookService.returnBook(userId,bookId);
     return res.status(200).json({msg:'book returned succefully',
@@ -53,6 +55,10 @@ const getAllAvailableBooks = async (req, res)=>{
 const updateBook = async (req,res)=>{
     const {title,description,status,author,ISBN,publishedAt}= req.body;
     const bookId = req.params;
+    if (!bookId) return res.status(400).json({msg:'missing route parameter ID'});
+    if (req.role !== 'admin'){
+        return res.status(400).json({msg:'You cannot update this book'})
+    }
     const book = await Books.findById({_id:bookId}).exec();
     const updateObj={
         title:title ? title:book.title,
@@ -71,6 +77,10 @@ const updateBook = async (req,res)=>{
 }
 const deleteBook = async (req,res)=>{
     const id = req.params;
+    if(!id) return res.status(400).json({msg:'missing route parameter ID'});
+    if (req.role !== 'admin'){
+        return res.status(400).json({msg:'You cannot delete this book'})
+    }
     const deletedBook = await bookService.deleteBook(id);
     if (deletedBook) return res.status(200).json({msg:'book deleted',
                                                     book:deletedBook})

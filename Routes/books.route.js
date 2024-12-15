@@ -14,8 +14,8 @@ router.get('/available',verifyJWT,asyncHandler(bookController.getAllAvailableBoo
 router.post('/add',verifyJWT,asyncHandler(bookController.addBook));
 router.post('/borrow',verifyJWT,asyncHandler(bookController.borrowBook));
 router.put('/return',verifyJWT,asyncHandler(bookController.returnBook));
-router.put('/:id',verifyJWT,asyncHandler(bookController.updateBook));
-router.delete('/:id',verifyJWT,asyncHandler(bookController.deleteBook));
+router.put('/:id',verifyJWT,roleCheck,asyncHandler(bookController.updateBook));
+router.delete('/:id',verifyJWT,roleCheck,asyncHandler(bookController.deleteBook));
 
 
 
