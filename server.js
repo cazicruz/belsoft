@@ -54,6 +54,9 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
 // Connect to MongoDB
 connectDB();
 
+// Trust proxy for accurate IP detection
+app.set('trust proxy', true);
+
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per window
