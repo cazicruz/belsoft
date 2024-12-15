@@ -14,7 +14,7 @@ router.get('/user',verifyJWT,roleCheck, asyncHandler(userController.getUser));
 router.delete('/:id',verifyJWT,roleCheck, asyncHandler(userController.deleteUser));
 
 
-// router.put('/update/:id',verifyJWT,roleCheck, asyncHandler(userController.updateUser));
+router.put('/update/:id',verifyJWT,roleCheck, asyncHandler(userController.updateUser));
 
 
 module.exports = router;
@@ -104,7 +104,7 @@ module.exports = router;
  *               email:
  *                 type: string
  *                 description: The email to update to.
- *               username:
+ *               firstName:
  *                 type: string
  *                 description: The username to update to.
  *               phoneNumber:

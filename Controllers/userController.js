@@ -54,48 +54,31 @@ const deleteUser = async (req, res)=>{
     });
 }
 
-// const updateUser = async (req, res)=>{
-//     const {id} = req.params;
-//     const {fullName,phoneNumber, email} = req.body;
-//     if(req.userId !==id && req.role !== 'admin'){
-//         return res.status(400).json({msg:'You cannot update this user'});
-//     }
-//     if(!id){
-//         return res.status(400).json({msg:'missing route parameter ID'});
-//     }
-//     if (!fullName && !email){
-//         return res.status(400).json({msg:'full Name or email is required'});
-//     }
-//     let userObj ={}
-//     if (fullName) userObj.fullName = fullName;
-//     if (phoneNumber) userObj.phoneNumber = phoneNumber;
-//     if (email) userObj.email = email;
-//     const user = await userService.updateUser(id, userObj);
-//     if(!user){
-//         return res.status(500).json({msg:'Error updating user'});
-//     }
-//     return res.status(200).json({
-//         msg:'User updated successfully',
-//         user:user
-//     });
-// }
-
-
-// const verifyUser = async (req,res)=>{
-//     const {id} =req.params;
-//     if(req.role !== 'admin'){
-//         return res.status(400).json({msg:'You cannot update this user balance'});
-//     }
-//     const user = await Users.findById(id).exec();
-//     if(!user){
-//         return res.status(404).json({msg:'incorrect user id'});
-//     }
-//     user.isVerified=true;
-//     user.save();
-//     return res.status(200).json({msg:'user verified successfully',
-//                                  user})
-// }
-
+const updateUser = async (req, res)=>{
+    const {id} = req.params;
+    const {firstName,phoneNumber, email} = req.body;
+    if(req.userId !==id && req.role !== 'admin'){
+        return res.status(400).json({msg:'You cannot update this user'});
+    }
+    if(!id){
+        return res.status(400).json({msg:'missing route parameter ID'});
+    }
+    if (!firstName && !email){
+        return res.status(400).json({msg:'firstName or email is required'});
+    }
+    let userObj ={}
+    if (firstName) userObj.firstName = firstName;
+    if (phoneNumber) userObj.phoneNumber = phoneNumber;
+    if (email) userObj.email = email;
+    const user = await userService.updateUser(id, userObj);
+    if(!user){
+        return res.status(500).json({msg:'Error updating user'});
+    }
+    return res.status(200).json({
+        msg:'User updated successfully',
+        user:user
+    });
+}
 
 
 
@@ -105,9 +88,7 @@ const userController = {
     getAllUsers,
     getUser,
     deleteUser,
-    // updateUser,
-    // updateBalance,
-    // userVerification,
-    // verifyUser,
+    updateUser,
+    
 }
 module.exports = userController;
