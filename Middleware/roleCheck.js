@@ -9,7 +9,7 @@ const roleCheck = async (req, res, next)=>{
         const user = await Users.findById(id);
         if(user){
             req.role = user.isAdmin ?'admin' : 'user';
-            console/log(req.role);
+            console.log(req.role);
         }else{
             return res.status(400).json({msg:'unauthorized user'});
         }
