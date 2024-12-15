@@ -10,6 +10,9 @@ const userSchema = new schema({
         type: String,
         required: true,
     },
+    DoB: {
+        type: Date,
+    },
     phoneNumber: {
         type: String,
         validate: {

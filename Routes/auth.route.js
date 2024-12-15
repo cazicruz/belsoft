@@ -35,6 +35,8 @@ module.exports = router;
  *                 type: string
  *               phoneNumber:
  *                 type: string
+ *               DoB:
+ *                 type: date
  *               sex:
  *                 type: string
  *             required:
@@ -44,6 +46,7 @@ module.exports = router;
  *               - email
  *               - phoneNumber
  *               - country
+ *               - DoB
  *               - sex
  *     responses:
  *       200:
