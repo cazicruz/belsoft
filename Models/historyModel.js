@@ -8,12 +8,12 @@ const historySchema = new schema({
         ref:'User',
         required:true
     },
-    books:[
+    book:
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'Books',
         }
-    ],
+    ,
     returned:{
         type:Boolean,
         default:false
