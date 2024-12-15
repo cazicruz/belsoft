@@ -58,7 +58,7 @@ connectDB();
 app.set('trust proxy', [
     'loopback',
     // Render proxy IPs (verify these with Render's documentation)
-    "216.24.57.252"
+    "216.24.57.252",
     '159.203.158.0/23',
     '138.197.224.0/20'
   ]);
