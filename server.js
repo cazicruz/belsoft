@@ -55,12 +55,32 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
 connectDB();
 
 // Trust proxy for accurate IP detection
-app.set('trust proxy', true);
-
-const limiter = rateLimit({
+app.set('trust proxy', [
+    'loopback',
+    // Render proxy IPs (verify these with Render's documentation)
+    "216.24.57.252"
+    '159.203.158.0/23',
+    '138.197.224.0/20'
+  ]);
+  
+  // Configure rate limiter
+  const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per window
-});
+    max: 100, // Limit each IP to 100 requests per windowMs
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    // Custom key generator that considers forwarded IPs securely
+    keyGenerator: (req) => {
+      // If you're behind a trusted proxy, use the last forwarded IP
+      const realIP = req.ip; // Express will handle this based on trust proxy setting
+      return realIP;
+    },
+    handler: (req, res) => {
+      res.status(429).json({
+        error: 'Too many requests, please try again later.'
+      });
+    }
+  });
 
 app.use(limiter);
 
